@@ -70,17 +70,17 @@ class User implements UserInterface, \JsonSerializable
     /**
      * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="projectAttendees")
      */
-    private ?Project $projectsAttending;
+    private ?ArrayCollection $projectsAttending;
 
     /**
      * @ORM\OneToMany(targetEntity=Project::class, mappedBy="createdBy")
      */
-    private ?Project $projectsCreated;
+    private ?ArrayCollection $projectsCreated;
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectContribution::class, mappedBy="createdBy")
      */
-    private ?ProjectContribution $projectContributions;
+    private ?ArrayCollection $projectContributions;
 
     public function __construct()
     {
