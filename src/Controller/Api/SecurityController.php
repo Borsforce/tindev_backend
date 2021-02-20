@@ -5,11 +5,11 @@ namespace App\Controller\Api;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Psl\Type as Type;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
-use Psl\Type as Type;
 
 class SecurityController
 {
@@ -25,7 +25,7 @@ class SecurityController
     }
 
     /**
-     * @Route(path="/api/register")
+     * @Route(path="/api/register", methods={"POST"})
      */
     public function register(Request $request): Response
     {
