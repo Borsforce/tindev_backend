@@ -22,22 +22,22 @@ class Developer
      * @ORM\OneToOne(targetEntity="User")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
-    private $user_id;
+    private $userId;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $profile_image;
+    private $profileImage;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $header_image;
+    private $headerImage;
 
     /**
      * @ORM\Column(type="smallint", length=1, nullable=true)
      */
-    private $job_status;
+    private $jobStatus;
 
     /**
      * @ORM\Column(type="json", nullable=true)
@@ -52,7 +52,7 @@ class Developer
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $portfilo_link;
+    private $portfiloLink;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -62,17 +62,17 @@ class Developer
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
-    private $twitter_handle;
+    private $twitterHandle;
 
     /**
      * @ORM\Column(type="string", length=180, nullable=true)
      */
-    private $job_title;
+    private $jobTitle;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $earned_coins;
+    private $earnedCoins;
 
     public function getId(): ?int
     {
@@ -81,48 +81,48 @@ class Developer
 
     public function getUserId(): ?int
     {
-        return $this->user_id;
+        return $this->userId;
     }
 
-    public function setUserId(int $user_id): self
+    public function setUserId(int $userId): self
     {
-        $this->user_id = $user_id;
+        $this->userId = $userId;
 
         return $this;
     }
 
     public function getProfileImage(): ?string
     {
-        return $this->profile_image;
+        return $this->profileImage;
     }
 
-    public function setProfileImage(?string $profile_image): self
+    public function setProfileImage(?string $profileImage): self
     {
-        $this->profile_image = $profile_image;
+        $this->profileImage = $profileImage;
 
         return $this;
     }
 
     public function getHeaderImage(): ?string
     {
-        return $this->header_image;
+        return $this->headerImage;
     }
 
-    public function setHeaderImage(?string $header_image): self
+    public function setHeaderImage(?string $headerImage): self
     {
-        $this->header_image = $header_image;
+        $this->headerImage = $headerImage;
 
         return $this;
     }
 
     public function getJobStatus(): ?string
     {
-        return $this->job_status;
+        return $this->jobStatus;
     }
 
-    public function setJobStatus(?string $job_status): self
+    public function setJobStatus(?string $jobStatus): self
     {
-        $this->job_status = $job_status;
+        $this->jobStatus = $jobStatus;
 
         return $this;
     }
@@ -153,12 +153,12 @@ class Developer
 
     public function getPortfiloLink(): ?string
     {
-        return $this->portfilo_link;
+        return $this->portfiloLink;
     }
 
-    public function setPortfiloLink(?string $portfilo_link): self
+    public function setPortfiloLink(?string $portfiloLink): self
     {
-        $this->portfilo_link = $portfilo_link;
+        $this->portfiloLink = $portfiloLink;
 
         return $this;
     }
@@ -177,36 +177,36 @@ class Developer
 
     public function getTwitterHandle(): ?string
     {
-        return $this->twitter_handle;
+        return $this->twitterHandle;
     }
 
-    public function setTwitterHandle(?string $twitter_handle): self
+    public function setTwitterHandle(?string $twitterHandle): self
     {
-        $this->twitter_handle = $twitter_handle;
+        $this->twitterHandle = $twitterHandle;
 
         return $this;
     }
 
     public function getJobTitle(): ?string
     {
-        return $this->job_title;
+        return $this->jobTitle;
     }
 
-    public function setJobTitle(?string $job_title): self
+    public function setJobTitle(?string $jobTitle): self
     {
-        $this->job_title = $job_title;
+        $this->jobTitle = $jobTitle;
 
         return $this;
     }
 
     public function getEarnedCoins(): ?int
     {
-        return $this->earned_coins;
+        return $this->earnedCoins;
     }
 
-    public function setEarnedCoins(int $earned_coins): self
+    public function setEarnedCoins(int $earnedCoins): self
     {
-        $this->earned_coins = $earned_coins;
+        $this->earnedCoins = $earnedCoins;
 
         return $this;
     }
