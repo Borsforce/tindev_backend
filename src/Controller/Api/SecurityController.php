@@ -5,6 +5,7 @@ namespace App\Controller\Api;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use OpenApi\Annotations as OA;
 use Psl\Type as Type;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,6 +27,15 @@ class SecurityController
 
     /**
      * @Route(path="/api/register", methods={"POST"})
+     *
+     * @OA\Response(
+     *     response="204",
+     *     description="When the registration was successful"
+     * )
+     * @OA\Response(
+     *     response="400",
+     *     description="When the username or email is already taken"
+     * )
      */
     public function register(Request $request): Response
     {
