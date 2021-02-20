@@ -10,10 +10,10 @@ use Symfony\Component\Serializer\SerializerInterface;
 trait ApiControllerTrait
 {
     /** @var EntityManagerInterface */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /** @var SerializerInterface */
-    private $serializer;
+    private SerializerInterface $serializer;
 
     /**
      * ApiControllerTrait constructor.
