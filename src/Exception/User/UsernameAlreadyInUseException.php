@@ -9,6 +9,6 @@ class UsernameAlreadyInUseException extends HttpException
 {
     public function __construct()
     {
-        parent::__construct(Response::HTTP_BAD_REQUEST, json_encode(['message' => 'Username is already given']));
+        parent::__construct(Response::HTTP_BAD_REQUEST, 'error.user.username_already_in_use');
     }
 }
