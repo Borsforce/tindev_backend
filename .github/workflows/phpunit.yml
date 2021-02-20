@@ -1,0 +1,48 @@
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+name: PHPUnit
+
+jobs:
+  cs-fixer:
+    name: 'PHPUnit'
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:13-alpine
+        ports:
+          - 5432:5432
+        env:
+          POSTGRES_PASSWORD: postgres
+    steps:
+      - name: 'Checkout'
+        uses: actions/checkout@v2
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest --no-scripts
+
+      - name: Copy config
+        run: cp .env.github .env
+
+      - name: Create database
+        run: ./bin/console doctrine:database:create
+
+      - name: Run Migrations
+        run: ./bin/console doctrine:migrations:migrate
+
+      - name: Load Fixtures
+        run: ./bin/console doctrine:fixtures:load -n
+
+      - name: Generate JWT
+        run: ./bin/console lexik:jwt:generate-keypair
+
+      - name: Run PHPUnit
+        run: ./vendor/bin/phpunit

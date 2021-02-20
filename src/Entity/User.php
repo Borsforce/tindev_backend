@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -20,11 +21,14 @@ class User implements UserInterface, \JsonSerializable
     private ?int $id;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Email()
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private string $email;
 
     /**
+     * @Assert\NotBlank()
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private string $username;
@@ -35,7 +39,8 @@ class User implements UserInterface, \JsonSerializable
     private array $roles = [];
 
     /**
-     * @var string The hashed password
+     * @Assert\NotBlank()
+     * @Assert\NotCompromisedPassword()
      * @ORM\Column(type="string")
      */
     private string $password;
@@ -65,6 +70,11 @@ class User implements UserInterface, \JsonSerializable
     public function getUsername(): string
     {
         return (string) $this->email;
+    }
+
+    public function getRealUsername(): string
+    {
+        return $this->username;
     }
 
     public function getRoles(): array
