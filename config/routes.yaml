@@ -1,2 +1,2 @@
 api_login:
-  path: /api/login
+  path: /api/authentication/sign-in

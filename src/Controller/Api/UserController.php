@@ -8,10 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @OA\Tag(name="User")
+ */
 class UserController extends AbstractController
 {
     /**
-     * @Route(path="/api/user/me", methods={"GET"})
+     * @Route(path="/api/me", methods={"GET"})
      *
      * @OA\Parameter(
      *     name="Authorization",
