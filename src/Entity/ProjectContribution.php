@@ -10,9 +10,9 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class ProjectContribution
 {
-    const STATUS_READY = 1;
-    const STATUS_WIP = 2;
-    
+    public const STATUS_READY = 1;
+    public const STATUS_WIP = 2;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
