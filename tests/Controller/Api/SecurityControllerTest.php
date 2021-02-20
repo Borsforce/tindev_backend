@@ -54,13 +54,13 @@ class SecurityControllerTest extends WebTestCase
         static::assertSame(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
 
         $body = json_decode($client->getResponse()->getContent(), true);
-        static::assertSame('Email address is already given', $body['message']);
+        static::assertSame('error.user.email_already_in_use', $body['message']);
 
         // Register again with same username
         $client->request('POST', '/api/register', [], [], [], json_encode(['username' => $username, 'password' => 'test', 'email' => uniqid('p', true) . '@test.de']));
         static::assertSame(Response::HTTP_BAD_REQUEST, $client->getResponse()->getStatusCode());
 
         $body = json_decode($client->getResponse()->getContent(), true);
-        static::assertSame('Username is already given', $body['message']);
+        static::assertSame('error.user.username_already_in_use', $body['message']);
     }
 }

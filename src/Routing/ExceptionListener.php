@@ -29,7 +29,7 @@ class ExceptionListener implements EventSubscriberInterface
         }
 
         if ($event->getThrowable() instanceof HttpException) {
-            $event->setResponse(new Response($event->getThrowable()->getMessage(), $event->getThrowable()->getStatusCode(), ['Content-Type' => 'application/json']));
+            $event->setResponse(new JsonResponse(['message' => $event->getThrowable()->getMessage()], $event->getThrowable()->getStatusCode(), ['Content-Type' => 'application/json']));
         }
     }
 }
