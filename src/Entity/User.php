@@ -50,37 +50,37 @@ class User implements UserInterface, \JsonSerializable
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $firstName;
+    private ?string $firstName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $lastName;
+    private ?string $lastName;
 
     /**
      * @ORM\Column(type="string", length=20, nullable=true)
      */
-    private $contactNumber;
+    private ?string $contactNumber;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $location;
+    private ?string $location;
 
     /**
      * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="projectAttendees")
      */
-    private $projectsAttending;
+    private ?Project $projectsAttending;
 
     /**
      * @ORM\OneToMany(targetEntity=Project::class, mappedBy="createdBy")
      */
-    private $projectsCreated;
+    private ?Project $projectsCreated;
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectContribution::class, mappedBy="createdBy")
      */
-    private $projectContributions;
+    private ?ProjectContribution $projectContributions;
 
     public function __construct()
     {

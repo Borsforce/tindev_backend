@@ -18,29 +18,29 @@ class ProjectContribution
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Project::class, inversedBy="projectContributions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $project;
+    private Project $project;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projectContributions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $createdBy;
+    private User $createdBy;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $contributions = [];
+    private array $contributions = [];
 
     /**
      * @ORM\Column(type="smallint", options={"default":2})
      */
-    private $status;
+    private int $status;
 
     public function getId(): ?int
     {

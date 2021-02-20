@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProjectRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,48 +18,48 @@ class Project
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private string $title;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="array", nullable=true)
      */
-    private $images = [];
+    private ?array $images = [];
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private $dueDate;
+    private ?DateTime $dueDate;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, inversedBy="projectsAttending")
      */
-    private $projectAttendees;
+    private ArrayCollection $projectAttendees;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private DateTime $createdAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="projectsCreated")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $createdBy;
+    private User $createdBy;
 
     /**
      * @ORM\OneToMany(targetEntity=ProjectContribution::class, mappedBy="project")
      */
-    private $projectContributions;
+    private ArrayCollection $projectContributions;
 
     public function __construct()
     {
