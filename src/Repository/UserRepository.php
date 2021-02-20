@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\User;
+use App\Exception\User\EmailAlreadyInUseException;
+use App\Exception\User\UsernameAlreadyInUseException;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
@@ -34,5 +36,31 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $user->setPassword($newEncodedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    public function checkUniquenessOfUser(string $username, string $email)
+    {
+        $query = $this->createQueryBuilder('u');
+
+        /** @var User|null $user */
+        $user = $query->select('u')
+            ->where('u.username = :username')
+            ->orWhere('u.email = :email')
+            ->setParameter(':username', $username)
+            ->setParameter(':email', $email)
+            ->getQuery()
+            ->getOneOrNullResult();
+
+        if ($user === null) {
+            return;
+        }
+
+        if ($user->getEmail() === $email) {
+            throw new EmailAlreadyInUseException();
+        }
+
+        if ($user->getRealUsername() === $username) {
+            throw new UsernameAlreadyInUseException();
+        }
     }
 }
