@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -44,6 +46,28 @@ class User implements UserInterface, \JsonSerializable
      * @ORM\Column(type="string")
      */
     private string $password;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Project::class, mappedBy="projectAttendees")
+     */
+    private $projectsAttending;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Project::class, mappedBy="createdBy")
+     */
+    private $projectsCreated;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ProjectContribution::class, mappedBy="createdBy")
+     */
+    private $projectContributions;
+
+    public function __construct()
+    {
+        $this->projectsAttending = new ArrayCollection();
+        $this->projectsCreated = new ArrayCollection();
+        $this->projectContributions = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -121,5 +145,92 @@ class User implements UserInterface, \JsonSerializable
             'email' => $this->email,
             'roles' => $this->roles
         ];
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjectsAttending(): Collection
+    {
+        return $this->projectsAttending;
+    }
+
+    public function addProject(Project $project): self
+    {
+        if (!$this->projectsAttending->contains($project)) {
+            $this->projectsAttending[] = $project;
+            $project->addProjectAttendee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): self
+    {
+        if ($this->projectsAttending->removeElement($project)) {
+            $project->removeProjectAttendee($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Project[]
+     */
+    public function getProjectsCreated(): Collection
+    {
+        return $this->projectsCreated;
+    }
+
+    public function addProjectsCreated(Project $projectsCreated): self
+    {
+        if (!$this->projectsCreated->contains($projectsCreated)) {
+            $this->projectsCreated[] = $projectsCreated;
+            $projectsCreated->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectsCreated(Project $projectsCreated): self
+    {
+        if ($this->projectsCreated->removeElement($projectsCreated)) {
+            // set the owning side to null (unless already changed)
+            if ($projectsCreated->getCreatedBy() === $this) {
+                $projectsCreated->setCreatedBy(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ProjectContribution[]
+     */
+    public function getProjectContributions(): Collection
+    {
+        return $this->projectContributions;
+    }
+
+    public function addProjectContribution(ProjectContribution $projectContribution): self
+    {
+        if (!$this->projectContributions->contains($projectContribution)) {
+            $this->projectContributions[] = $projectContribution;
+            $projectContribution->setCreatedBy($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjectContribution(ProjectContribution $projectContribution): self
+    {
+        if ($this->projectContributions->removeElement($projectContribution)) {
+            // set the owning side to null (unless already changed)
+            if ($projectContribution->getCreatedBy() === $this) {
+                $projectContribution->setCreatedBy(null);
+            }
+        }
+
+        return $this;
     }
 }
