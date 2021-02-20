@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - 80:80
+    volumes:
+      - ./:/var/www/html
+  postgres:
+    image: postgres:13-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: tindev
+    ports:
+      - "5432:5432"
