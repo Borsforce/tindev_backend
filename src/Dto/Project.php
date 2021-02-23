@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Dto;
 
+use DateTime;
+
 final class Project
 {
     /**
@@ -16,6 +18,10 @@ final class Project
      */
     private $description;
 
+    /**
+     * @var DateTime
+     */
+    private $dueDate;
 
     public function getTitle(): ?string
     {
@@ -37,6 +43,18 @@ final class Project
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getDueDate(): ?\DateTimeInterface
+    {
+        return $this->dueDate;
+    }
+
+    public function setDueDate(?\DateTimeInterface $dueDate): self
+    {
+        $this->dueDate = $dueDate;
 
         return $this;
     }
